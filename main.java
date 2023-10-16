@@ -1,19 +1,55 @@
-public class main {
+import java.util.Random;
+
+public class Main {
     public static void main(String[] args) {
-        arvore ar = new arvore();
+        int[] tamanhos = {100, 500, 1000, 10000, 20000};
 
-        ar.Adicionar(65);
-        ar.Adicionar(95);
-        ar.Adicionar(125);
-        ar.Adicionar(35);
-        ar.Adicionar(5);
+        for (int tamanho : tamanhos) {
+            System.out.println("Testando com " + tamanho + " elementos:");
 
-        Node n = ar.buscar(5);
-        System.out.println(n.info);
+            long inicio, fim;
 
-        ar.Adicionar(25);
+            // Árvore binária de busca (BST)
+            ArvoreBinaria arvoreBST = new ArvoreBinaria();
+            Random random = new Random();
 
-        n = ar.buscar(25);
-        System.out.println(n.info);
+            inicio = System.currentTimeMillis();
+            for (int i = 0; i < tamanho; i++) {
+                arvoreBST.inserir(random.nextInt(100000));
+            }
+
+            for (int i = 0; i < tamanho; i++) {
+                arvoreBST.buscar(random.nextInt(100000));
+            }
+
+            for (int i = 0; i < tamanho; i++) {
+                arvoreBST.remover(random.nextInt(100000));
+            }
+
+            fim = System.currentTimeMillis();
+            System.out.println("Árvore Binária (BST) - Tempo total: " + (fim - inicio) + " ms");
+
+            // Árvore AVL
+            ArvoreAVL arvoreAVL = new ArvoreAVL();
+            random = new Random();
+
+            inicio = System.currentTimeMillis();
+            for (int i = 0; i < tamanho; i++) {
+                arvoreAVL.inserir(random.nextInt(100000));
+            }
+
+            for (int i = 0; i < tamanho; i++) {
+                arvoreAVL.buscar(random.nextInt(100000));
+            }
+
+            for (int i = 0; i < tamanho; i++) {
+                arvoreAVL.remover(random.nextInt(100000));
+            }
+
+            fim = System.currentTimeMillis();
+            System.out.println("Árvore AVL - Tempo total: " + (fim - inicio) + " ms");
+
+            System.out.println();
+        }
     }
 }
