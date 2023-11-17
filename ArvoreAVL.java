@@ -136,38 +136,35 @@ public class ArvoreAVL {
         return no == null ? 0 : altura(no.esquerda) - altura(no.direita);
     }
 
-    private No rotacaoDireita(No y) {
+private void atualizarAlturaNo(No, no){
+        No.altura = Math.max(altura(no.esquerda), altura(no.direita)) + 1;
+}
+
+private No rotacaoDireita(No y) {
         No x = y.esquerda;
-        No T2 = x.direita;
+        No sA = x.direita;
 
         x.direita = y;
-        y.esquerda = T2;
-
-        y.altura = Math.max(altura(y.esquerda), altura(y.direita)) + 1;
-        x.altura = Math.max(altura(x.esquerda), altura(x.direita)) + 1;
+        y.esquerda = sA;
+   
+        atualizarAlturaNo(y);
+        atualizarAlturaNo(x);
 
         return x;
     }
 
     private No rotacaoEsquerda(No x) {
         No y = x.direita;
-        No T2 = y.esquerda;
+        No sA = y.esquerda;
 
         y.esquerda = x;
-        x.direita = T2;
+        x.direita = sA;
 
-        x.altura = Math.max(altura(x.esquerda), altura(x.direita)) + 1;
-        y.altura = Math.max(altura(y.esquerda), altura(y.direita)) + 1;
+        atualizarAlturaNo(x);
+        atualizarAlturaNo(y);
 
         return y;
     }
-
-    private class No {
-        int valor;
-        No esquerda;
-        No direita;
-        int altura;
-
         No(int valor) {
             this.valor = valor;
             esquerda = null;
